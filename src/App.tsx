@@ -1,11 +1,13 @@
-import { Button } from '@/components'
+import { Button, Card } from '@/components/ui'
 
 export const App = () => {
   return (
     <div
       style={{ display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center' }}
     >
-      <Button variant={'outline'}>Далее</Button>
+      <Card>
+        <Button variant={'primary'}>Далее</Button>
+      </Card>
     </div>
   )
 }
