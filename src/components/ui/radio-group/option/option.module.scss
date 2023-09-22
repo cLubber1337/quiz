@@ -1,0 +1,44 @@
+@import 'src/styles/breakpoints';
+
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.label {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  font-size: var(--text-2xl);
+
+  @media (max-width: $breakpoint-md) {
+    font-size: var(--text-xl);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: var(--text-base);
+  }
+}
+
+.input {
+  cursor: pointer;
+  display: none;
+}
+
+.icons {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.checked {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

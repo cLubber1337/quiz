@@ -21,7 +21,7 @@ export const Slider = ({ max, min, value, id, step = 1, onChange, label }: Slide
 
   return (
     <div className={s.slider}>
-      <h3 className="label">{label}</h3>
+      <span className={s.label}>{label}</span>
 
       <input
         className={s.range}

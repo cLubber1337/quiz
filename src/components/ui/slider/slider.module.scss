@@ -7,6 +7,22 @@
   margin-bottom: 1.88rem;
 }
 
+.label {
+  margin-bottom: 5.5rem;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-medium);
+
+  @media (max-width: $breakpoint-md) {
+    margin-bottom: 4.37rem;
+    font-size: var(--text-2xl);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: 3.38rem;
+    font-size: var(--text-lg);
+  }
+}
+
 .range {
   cursor: pointer;
 
@@ -46,7 +62,7 @@
 
 .rangeValue {
   position: absolute;
-  bottom: 65px;
+  bottom: 76px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -54,10 +70,12 @@
   font-weight: var(--font-bold);
 
   @media (max-width: $breakpoint-md) {
+    bottom: 66px;
     font-size: var(--text-xl);
   }
 
   @media (max-width: $breakpoint-sm) {
+    bottom: 56px;
     font-size: var(--text-base);
   }
 }

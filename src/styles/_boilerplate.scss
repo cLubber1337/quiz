@@ -12,6 +12,7 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
 }
 
 input,
@@ -56,18 +57,29 @@ body {
   }
 }
 
-.label {
-  margin-bottom: 5.5rem;
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 71px;
+
+  @media (max-width: $breakpoint-md) {
+    height: 52px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 41px;
+  }
+}
+
+.title {
   font-size: var(--text-3xl);
   font-weight: var(--font-medium);
 
   @media (max-width: $breakpoint-md) {
-    margin-bottom: 4.37rem;
     font-size: var(--text-2xl);
   }
 
   @media (max-width: $breakpoint-sm) {
-    margin-bottom: 3.38rem;
     font-size: var(--text-lg);
   }
 }

@@ -6,11 +6,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "types": ["node"],
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -18,6 +13,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Linting */
     "strict": true,
