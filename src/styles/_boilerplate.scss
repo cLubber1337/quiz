@@ -1,3 +1,5 @@
+@import 'breakpoints';
+
 html {
   box-sizing: border-box;
   font-size: 100%;
@@ -38,4 +40,34 @@ body {
 
   background: url('src/assets/img/background.jpg') center top no-repeat;
   background-size: cover;
+}
+
+.container {
+  max-width: 1455px;
+  margin: 0 auto;
+  padding: 8.95rem 8.75rem 0;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 10.5rem 2.81rem 0;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 2.5rem 1rem 3.1rem;
+  }
+}
+
+.label {
+  margin-bottom: 5.5rem;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-medium);
+
+  @media (max-width: $breakpoint-md) {
+    margin-bottom: 4.37rem;
+    font-size: var(--text-2xl);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: 3.38rem;
+    font-size: var(--text-lg);
+  }
 }

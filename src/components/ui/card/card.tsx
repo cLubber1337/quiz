@@ -1,9 +1,14 @@
+import { ReactNode } from 'react'
+
+import clsx from 'clsx'
+
 import s from './card.module.scss'
 
 interface CardProps {
-  children: React.ReactNode
+  children: ReactNode
+  className?: string
 }
 
-export const Card = ({ children }: CardProps) => {
-  return <div className={s.card}>{children}</div>
+export const Card = ({ children, className = '' }: CardProps) => {
+  return <section className={clsx(s.card, className)}>{children}</section>
 }

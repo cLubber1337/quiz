@@ -57,13 +57,13 @@
 .outline {
   color: var(--color-primary);
   background:
-    linear-gradient(#fff, #fff) padding-box,
+    var(--gradient-white) padding-box,
     var(--gradient-outline) border-box;
   border: 2px solid transparent;
 
   &:hover {
     background:
-      linear-gradient(#fff, #fff) padding-box,
+      var(--gradient-white) padding-box,
       var(--gradient-outline-hover) border-box;
   }
 }
