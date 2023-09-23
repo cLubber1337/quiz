@@ -84,3 +84,24 @@ body {
     font-size: var(--text-lg);
   }
 }
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: start;
+  justify-content: center;
+
+  margin-top: 2.25rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 1.88rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column-reverse;
+    gap: 15px;
+    align-items: center;
+    margin-top: 11.87rem;
+  }
+}
