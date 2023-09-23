@@ -1,3 +1,5 @@
 export * from './radio-icon.tsx'
 export * from './radio-checked-icon.tsx'
 export * from './arrow-icon.tsx'
+export * from './checkbox-icon.tsx'
+export * from './checkbox-checked-icon.tsx'

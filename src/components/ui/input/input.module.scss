@@ -1,20 +1,23 @@
 @import 'src/styles/breakpoints';
 
-.textarea {
-  resize: none;
+.inputWrapper {
+  display: flex;
+}
 
+.input {
   width: 100%;
-  padding: 0.94rem 1.56rem;
+  height: 67px;
+  padding: 0 1.56rem;
 
   font-size: var(--text-lg);
 
-  background: var(--color-white);
+  background: #fff;
   border: var(--border-primary);
   border-radius: 10px;
+  outline: none;
   box-shadow: var(--shadow-input);
 
   &::placeholder {
-    font-style: italic;
     color: var(--color-caption);
   }
 
@@ -24,6 +27,7 @@
   }
 
   @media (max-width: $breakpoint-sm) {
+    height: 54px;
     font-size: var(--tesxt-sm);
   }
 }

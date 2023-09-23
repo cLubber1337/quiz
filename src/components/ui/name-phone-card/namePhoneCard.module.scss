@@ -1,0 +1,35 @@
+@import 'src/styles/breakpoints';
+
+.phone {
+  margin-top: 3.13rem;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 1.87rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 1.56rem;
+  }
+}
+
+.errorMessage {
+  padding-top: 2px;
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--color-error);
+
+  @media (max-width: $breakpoint-md) {
+    padding-top: 0;
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: var(--text-xsm);
+  }
+}
+
+.errorInput {
+  border: 1px solid var(--color-error) !important;
+}
