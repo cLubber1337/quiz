@@ -1,0 +1,96 @@
+@import 'src/styles/breakpoints';
+
+.select {
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 67px;
+  padding: 0 25px;
+
+  font-size: var(--text-2xl);
+
+  background-color: var(--color-white);
+  border: var(--border-primary);
+  border-radius: 10px;
+  box-shadow: var(--shadow-input);
+
+  &.borderBottom {
+    border-radius: 10px 10px 0 0;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: var(--text-xl);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 54px;
+    font-size: var(--text-base);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: $breakpoint-sm) {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+.options {
+  position: absolute;
+  z-index: 12;
+  top: calc(100% + 1px);
+  left: -1px;
+
+  display: none;
+
+  width: calc(100% + 2px);
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background-color: var(--color-white);
+  border: var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--shadow-input);
+
+  &.show {
+    display: block;
+  }
+}
+
+.option {
+  padding: 18px 25px;
+  font-size: var(--text-2xl);
+
+  &:hover {
+    background-color: var(--color-info-hover);
+  }
+
+  &:last-child {
+    border-radius: 0 0 10px 10px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: var(--text-xl);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 54px;
+    font-size: var(--text-base);
+  }
+}
+
+.highlighted {
+  background-color: var(--color-info-hover);
+}

@@ -3,6 +3,7 @@
   --color-white: #ffffff;
   --color-error: #ff6565;
   --color-info: #3d46fa;
+  --color-info-hover: rgba(146, 169, 247, 0.43);
   --color-btn-bg-outline: rgba(67, 51, 255, 0);
 
   //gradient
@@ -21,4 +22,7 @@
   --shadow-btn: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   --shadow-input: 0px 4px 6px 0px rgba(132, 132, 132, 0.1);
   --shadow-card: 0px 4px 21px 0px rgba(0, 0, 0, 0.1);
+
+  //border
+  --border-primary: 1px solid #e3e3e3;
 }

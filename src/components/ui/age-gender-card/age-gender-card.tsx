@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 
 import s from './ageGenderCard.module.scss'
 
-import { Card, RadioGroup, Slider } from '@/components/ui'
+import { Button, Card, RadioGroup, Slider } from '@/components/ui'
 
 interface AgeGenderCardProps {}
 
@@ -32,7 +32,7 @@ export const AgeGenderCard = ({}: AgeGenderCardProps) => {
         <h3 className="title">Пол</h3>
       </div>
       <RadioGroup
-        name="Пол"
+        name="gender"
         selected={gender}
         onChange={handlePeriodChange}
         options={[
@@ -40,6 +40,11 @@ export const AgeGenderCard = ({}: AgeGenderCardProps) => {
           { value: 'female', title: 'Женский' },
         ]}
       />
+      <div className={s.nextBtn}>
+        <Button variant={'primary'} disabled={gender === ''}>
+          Далее
+        </Button>
+      </div>
     </Card>
   )
 }
