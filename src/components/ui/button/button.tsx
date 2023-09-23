@@ -6,7 +6,7 @@ import s from './button.module.scss'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant: 'primary' | 'outline'
+  variant?: 'primary' | 'outline'
   className?: string
 }
 
