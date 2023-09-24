@@ -100,8 +100,26 @@ body {
 
   @media (max-width: $breakpoint-sm) {
     flex-direction: column-reverse;
+    flex: 1;
     gap: 15px;
+    margin-top: 0;
     align-items: center;
-    margin-top: 11.87rem;
+    justify-content: flex-start;
+  }
+}
+
+.progress-indicator {
+  position: absolute;
+  top: 6.56rem;
+  right: 9.94rem;
+
+  @media (max-width: $breakpoint-md) {
+    top: 7.88rem;
+    right: 1.9rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    top: 0;
+    right: 0;
   }
 }

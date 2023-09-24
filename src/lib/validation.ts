@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { SelectOption } from '@/lib/data.ts'
+
 export const formSchema = z.object({
   name: z.string().nonempty('Введите имя'),
   phone: z.string().nonempty('Введите номер телефона'),
@@ -7,9 +9,16 @@ export const formSchema = z.object({
     .boolean()
     .default(true)
     .refine(value => value === true, {
-      message: 'Вы должны согласиться с политикой конфиденциальности',
+      message: 'Необходимо согласие с политикой конфиденциальности',
       path: ['privacy'],
     }),
 })
 
 export type FormValues = z.infer<typeof formSchema>
+
+export type FormDataValues = {
+  age: number
+  gender: string
+  city: SelectOption
+  message: string
+}

@@ -1,22 +1,33 @@
+import { Dispatch, SetStateAction } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import s from './namePhoneCard.module.scss'
 
-import { Button, Card, ControlledInput, ControlledCheckbox } from '@/components/ui'
+import {
+  Button,
+  Card,
+  ControlledInput,
+  ControlledCheckbox,
+  ProgressIndicator,
+} from '@/components/ui'
+import { LoaderIcon } from '@/components/ui/icons/loader-icon.tsx'
 import { formSchema, FormValues } from '@/lib/validation.ts'
 
 interface NamePhoneCardProps {
   onSubmit: SubmitHandler<FormValues>
-  disabled?: boolean
+  isFetching?: boolean
+  setProgress: Dispatch<SetStateAction<number>>
 }
 
-export const NamePhoneCard = ({ onSubmit, disabled }: NamePhoneCardProps) => {
+export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCardProps) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm<FormValues>({
     mode: 'onBlur',
     resolver: zodResolver(formSchema),
@@ -26,10 +37,13 @@ export const NamePhoneCard = ({ onSubmit, disabled }: NamePhoneCardProps) => {
       privacy: true,
     },
   })
+  const formValues = watch()
+  const disabledSubmitBtn = !formValues.privacy || !formValues.name || !formValues.phone
 
   return (
     <Card className={s.namePhoneCard}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <ProgressIndicator current={3} total={3} className="progress-indicator" />
+      <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <div className="title-wrapper">
           <h3 className="title">Имя</h3>
           {errors.name && <p className={s.errorMessage}>{errors.name.message}</p>}
@@ -37,7 +51,6 @@ export const NamePhoneCard = ({ onSubmit, disabled }: NamePhoneCardProps) => {
         <ControlledInput
           className={clsx(errors.name && s.errorInput)}
           type="text"
-          disabled={disabled}
           name="name"
           control={control}
         />
@@ -49,7 +62,6 @@ export const NamePhoneCard = ({ onSubmit, disabled }: NamePhoneCardProps) => {
           <ControlledInput
             className={clsx(errors.phone && s.errorInput)}
             type="tel"
-            disabled={disabled}
             name="phone"
             control={control}
           />
@@ -58,12 +70,14 @@ export const NamePhoneCard = ({ onSubmit, disabled }: NamePhoneCardProps) => {
           label="Я согласен с политикой конфиденциальности"
           name="privacy"
           control={control}
-        />
+        />{' '}
+        {errors.privacy && <p className={s.errorMessage}>{errors.privacy.message}</p>}
         <div className="actions">
-          <Button type="submit" variant="outline">
+          <Button variant="outline" onClick={() => setProgress(prev => prev - 1)}>
             Назад
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={disabledSubmitBtn}>
+            {isFetching && <LoaderIcon className={s.loaderIcon} />}
             Отправить заявку
           </Button>
         </div>

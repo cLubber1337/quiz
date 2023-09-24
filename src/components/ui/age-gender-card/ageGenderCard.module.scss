@@ -1,6 +1,7 @@
 @import 'src/styles/breakpoints';
 
 .ageGenderCard {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -15,6 +16,9 @@
   }
 
   @media (max-width: $breakpoint-sm) {
-    margin-top: 17rem;
+    flex: 1;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    margin-top: 0;
   }
 }

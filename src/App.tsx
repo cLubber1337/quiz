@@ -1,21 +1,66 @@
 import { useState } from 'react'
 
-import { SuccessCard } from '@/components/ui/success-card/success-card.tsx'
-import { FormValues } from '@/lib/validation.ts'
+import { AgeGenderCard, LocationCard, NamePhoneCard } from '@/components/ui'
+import { SuccessModal } from '@/components/ui/success-modal/success-modal.tsx'
+import { selectOptions } from '@/lib/data.ts'
+import { FormDataValues, FormValues } from '@/lib/validation.ts'
+import { fetchFormData } from '@/services/api.ts'
 
 export const App = () => {
-  const [isOpenModal, setIsOpenModal] = useState(true)
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [progress, setProgress] = useState(1)
+  const [isFetching, setIsFetching] = useState(false)
+  const [formDataValues, setFormDataValues] = useState<FormDataValues>({
+    age: 27,
+    gender: '',
+    city: selectOptions[0],
+    message: '',
+  })
 
-  const setIsOpen = () => {
+  const openModal = () => setIsOpenModal(true)
+  const closeModal = () => {
     setIsOpenModal(false)
+    setProgress(1)
   }
-  const handleSignIn = (data: FormValues) => {
-    console.log(data)
+
+  const handleSubmit = async (data: FormValues) => {
+    setIsFetching(true)
+    try {
+      await fetchFormData(data)
+      setIsFetching(false)
+      setProgress(0)
+      openModal()
+      setFormDataValues({
+        age: 27,
+        gender: '',
+        city: selectOptions[0],
+        message: '',
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <main className="container">
-      <SuccessCard isOpen={isOpenModal} onClose={setIsOpen} />
+      <SuccessModal isOpen={isOpenModal} onClose={closeModal} />
+      {progress === 1 && (
+        <AgeGenderCard
+          formDataValues={formDataValues}
+          setFormDataValues={setFormDataValues}
+          setProgress={setProgress}
+        />
+      )}
+      {progress === 2 && (
+        <LocationCard
+          setProgress={setProgress}
+          formDataValues={formDataValues}
+          setFormDataValues={setFormDataValues}
+        />
+      )}
+      {progress === 3 && (
+        <NamePhoneCard setProgress={setProgress} onSubmit={handleSubmit} isFetching={isFetching} />
+      )}
     </main>
   )
 }

@@ -1,31 +1,32 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 import s from './ageGenderCard.module.scss'
 
-import { Button, Card, RadioGroup, Slider } from '@/components/ui'
+import { Button, Card, ProgressIndicator, RadioGroup, Slider } from '@/components/ui'
+import { FormDataValues } from '@/lib/validation.ts'
 
-interface AgeGenderCardProps {}
+interface AgeGenderCardProps {
+  setProgress: Dispatch<SetStateAction<number>>
+  formDataValues: FormDataValues
+  setFormDataValues: Dispatch<SetStateAction<FormDataValues>>
+}
 
-export const AgeGenderCard = ({}: AgeGenderCardProps) => {
-  const [rangeAge, setRangeAge] = useState(27)
-  const [gender, setGender] = useState('')
-
-  const handlePeriodChange = (val: string) => {
-    setGender(val)
-  }
-
-  const onChangeRangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setRangeAge(+e.target.value)
-  }
-
+export const AgeGenderCard = ({
+  setProgress,
+  formDataValues,
+  setFormDataValues,
+}: AgeGenderCardProps) => {
   return (
     <Card className={s.ageGenderCard}>
+      <ProgressIndicator current={1} total={3} className="progress-indicator" />
       <Slider
         id="age-range"
-        value={rangeAge}
+        value={formDataValues.age}
         min={18}
         max={35}
-        onChange={onChangeRangeHandler}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setFormDataValues(prev => ({ ...prev, age: +e.target.value }))
+        }
         label={'Возраст'}
       />
       <div className="title-wrapper">
@@ -33,15 +34,19 @@ export const AgeGenderCard = ({}: AgeGenderCardProps) => {
       </div>
       <RadioGroup
         name="gender"
-        selected={gender}
-        onChange={handlePeriodChange}
+        selected={formDataValues.gender}
+        onChange={e => setFormDataValues(prev => ({ ...prev, gender: e }))}
         options={[
           { value: 'male', title: 'Мужской' },
           { value: 'female', title: 'Женский' },
         ]}
       />
       <div className={s.nextBtn}>
-        <Button variant={'primary'} disabled={gender === ''}>
+        <Button
+          variant={'primary'}
+          disabled={formDataValues.gender === ''}
+          onClick={() => setProgress(prev => prev + 1)}
+        >
           Далее
         </Button>
       </div>

@@ -1,14 +1,14 @@
-import s from './success-card.module.scss'
+import s from './success-modal.module.scss'
 
 import { Button, Modal } from '@/components/ui'
 import { SuccessIcon } from '@/components/ui/icons'
 
-interface SuccessCardProps {
+interface SuccessModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
-export const SuccessCard = ({ onClose, isOpen }: SuccessCardProps) => {
+export const SuccessModal = ({ onClose, isOpen }: SuccessModalProps) => {
   return (
     <Modal isOpen={isOpen} lazy>
       <div className={s.successCard}>
