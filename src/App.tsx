@@ -9,7 +9,7 @@ import { fetchFormData } from '@/services/api.ts'
 export const App = () => {
   const KEY = import.meta.env.VITE_KEY
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const [progress, setProgress] = useState(3)
+  const [progress, setProgress] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [countryCode, setCountryCode] = useState<string>('')
   const [formDataValues, setFormDataValues] = useState<FormDataValues>({
@@ -28,7 +28,7 @@ export const App = () => {
   const handleSubmit = async (data: FormValues) => {
     setIsFetching(true)
     try {
-      await fetchFormData(data)
+      await fetchFormData(data, formDataValues)
       setIsFetching(false)
       setProgress(0)
       openModal()
@@ -43,25 +43,26 @@ export const App = () => {
     }
   }
 
-  const fetchCountry = async () => {
-    try {
-      const res = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${KEY}`)
-      const data = await res.json()
-      const countryCode = data['country_code']
-
-      if (countryCode === 'RU' || countryCode === 'BY') {
-        setCountryCode(countryCode)
-      } else {
-        setCountryCode('RU')
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   useEffect(() => {
+    const fetchCountry = () => {
+      fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          const countryCode = data['country_code']
+
+          if (countryCode === 'RU' || countryCode === 'BY') {
+            setCountryCode(countryCode)
+          } else {
+            setCountryCode('RU')
+          }
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+
     fetchCountry()
-  }, [])
+  }, [KEY])
 
   return (
     <main className="container">

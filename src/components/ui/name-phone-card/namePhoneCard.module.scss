@@ -62,3 +62,54 @@
     height: 32px;
   }
 }
+
+.inputMask {
+  width: 100%;
+  height: 67px;
+  padding: 0 1.56rem;
+
+  font-size: var(--text-lg);
+
+  background: #fff;
+  border: var(--border-primary);
+  border-radius: 10px;
+  outline: none;
+  box-shadow: var(--shadow-input);
+
+  &::placeholder {
+    color: var(--color-caption);
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: 0.94rem 1.25rem;
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 54px;
+    font-size: var(--tesxt-sm);
+  }
+}
+
+.checkbox {
+  position: relative;
+}
+
+.errorPrivacy {
+  position: absolute;
+  bottom: -19px;
+  left: 23px;
+
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--color-error);
+
+  @media (max-width: $breakpoint-md) {
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    bottom: -30px;
+    font-size: var(--text-xsm);
+  }
+}

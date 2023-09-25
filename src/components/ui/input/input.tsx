@@ -19,16 +19,6 @@ export const Input = forwardRef<Omit<HTMLInputElement, 'onChange'>, InputProps>(
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.value)
     }
-    const formatNumber = (e: ChangeEvent<HTMLInputElement>) => {
-      let phoneNumber = e.target.value.replace(/\D/g, '')
-
-      if (!phoneNumber) {
-        return (phoneNumber = '')
-      }
-      if (['7', '8', '9'].includes(phoneNumber[0])) {
-        phoneNumber = '7' + phoneNumber
-      }
-    }
 
     return (
       <div className={s.inputWrapper}>
@@ -37,7 +27,7 @@ export const Input = forwardRef<Omit<HTMLInputElement, 'onChange'>, InputProps>(
           ref={ref}
           name={name}
           value={value}
-          onChange={type === 'tel' ? formatNumber : onChangeHandler}
+          onChange={onChangeHandler}
           disabled={disabled}
           type={type}
           {...rest}
