@@ -20,4 +20,7 @@ export type FormDataValues = {
   gender: string
   city: SelectOption
   message: string
+  name: string
+  phone: string
+  privacy: boolean
 }

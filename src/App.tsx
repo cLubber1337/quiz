@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { AgeGenderCard, LocationCard, NamePhoneCard } from '@/components/ui'
 import { SuccessModal } from '@/components/ui/success-modal/success-modal.tsx'
 import { selectOptions } from '@/lib/data.ts'
-import { FormDataValues, FormValues } from '@/lib/validation.ts'
+import { FormDataValues } from '@/lib/validation.ts'
 import { fetchFormData } from '@/services/api.ts'
 
 export const App = () => {
@@ -17,6 +17,9 @@ export const App = () => {
     gender: '',
     city: selectOptions[0],
     message: '',
+    name: '',
+    phone: '',
+    privacy: true,
   })
 
   const openModal = () => setIsOpenModal(true)
@@ -25,10 +28,10 @@ export const App = () => {
     setProgress(1)
   }
 
-  const handleSubmit = async (data: FormValues) => {
+  const handleSubmit = async () => {
     setIsFetching(true)
     try {
-      await fetchFormData(data, formDataValues)
+      await fetchFormData(formDataValues)
       setIsFetching(false)
       setProgress(0)
       openModal()
@@ -37,6 +40,9 @@ export const App = () => {
         gender: '',
         city: selectOptions[0],
         message: '',
+        name: '',
+        phone: '',
+        privacy: true,
       })
     } catch (error) {
       console.error(error)
@@ -53,7 +59,7 @@ export const App = () => {
           if (countryCode === 'RU' || countryCode === 'BY') {
             setCountryCode(countryCode)
           } else {
-            setCountryCode('RU')
+            setCountryCode('')
           }
         })
         .catch(error => {
@@ -83,10 +89,12 @@ export const App = () => {
       )}
       {progress === 3 && (
         <NamePhoneCard
+          formDataValues={formDataValues}
           setProgress={setProgress}
           onSubmit={handleSubmit}
           isFetching={isFetching}
           countryCode={countryCode}
+          setFormDataValues={setFormDataValues}
         />
       )}
     </main>
