@@ -10,7 +10,6 @@ export const formSchema = z.object({
     .default(true)
     .refine(value => value === true, {
       message: 'Необходимо согласие с политикой конфиденциальности',
-      path: ['privacy'],
     }),
 })
 

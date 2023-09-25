@@ -1,5 +1,15 @@
 @import 'src/styles/breakpoints';
 
+.checkboxWrapper {
+  display: inline-block;
+  width: fit-content;
+}
+
+input[type='checkbox'] {
+  position: absolute;
+  left: -9999px;
+}
+
 .label {
   cursor: pointer;
   user-select: none;
@@ -27,4 +37,10 @@
   position: relative;
   display: flex;
   align-items: center;
+
+  &:focus-within {
+    border-radius: 10px;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
 }

@@ -3,6 +3,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import s from './ageGenderCard.module.scss'
 
 import { Button, Card, ProgressIndicator, RadioGroup, Slider } from '@/components/ui'
+import { radioOptions } from '@/lib/data.ts'
 import { FormDataValues } from '@/lib/validation.ts'
 
 interface AgeGenderCardProps {
@@ -36,10 +37,7 @@ export const AgeGenderCard = ({
         name="gender"
         selected={formDataValues.gender}
         onChange={e => setFormDataValues(prev => ({ ...prev, gender: e }))}
-        options={[
-          { value: 'male', title: 'Мужской' },
-          { value: 'female', title: 'Женский' },
-        ]}
+        options={radioOptions}
       />
       <div className={s.nextBtn}>
         <Button

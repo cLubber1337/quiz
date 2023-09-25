@@ -1,10 +1,12 @@
-import { Option, OptionType } from './option/option.tsx'
+import { Option } from './option/option.tsx'
 import s from './radioGroup.module.scss'
+
+import { RadioOption } from '@/lib/data.ts'
 
 interface RadioGroupProps {
   name: string
-  options: OptionType[]
-  selected: OptionType['value']
+  options: RadioOption[]
+  selected: RadioOption['value']
   onChange: (value: string) => void
 }
 

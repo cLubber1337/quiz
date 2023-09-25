@@ -4,6 +4,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  width: fit-content;
 }
 
 .label {
@@ -27,13 +28,20 @@
 
 .input {
   cursor: pointer;
-  display: none;
+  position: absolute;
+  left: -9999px;
 }
 
 .icons {
   position: relative;
   display: flex;
   align-items: center;
+
+  &:focus-within {
+    border-radius: 10px;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .checked {

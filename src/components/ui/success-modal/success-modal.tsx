@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import s from './success-modal.module.scss'
 
 import { Button, Modal } from '@/components/ui'
@@ -9,6 +11,20 @@ interface SuccessModalProps {
 }
 
 export const SuccessModal = ({ onClose, isOpen }: SuccessModalProps) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
+
   return (
     <Modal isOpen={isOpen} lazy>
       <div className={s.successCard}>

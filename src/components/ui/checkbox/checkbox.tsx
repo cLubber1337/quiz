@@ -14,21 +14,21 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, disabled, checked, onCheckedChange, ...rest }, ref) => {
     return (
       <div className={s.checkboxWrapper}>
-        <input
-          style={{ display: 'none' }}
-          className={s.checkbox}
-          ref={ref}
-          type="checkbox"
-          {...rest}
-          disabled={disabled}
-          checked={checked}
-          id={rest.id}
-          onChange={e => {
-            onCheckedChange?.(e.target.checked)
-          }}
-        />
-        <label htmlFor={rest.id} className={s.label} tabIndex={0}>
+        <label htmlFor={rest.id} className={s.label}>
           <div className={s.icons}>
+            <input
+              className={s.checkbox}
+              ref={ref}
+              type="checkbox"
+              disabled={disabled}
+              checked={checked}
+              id={rest.id}
+              onChange={e => {
+                onCheckedChange?.(e.target.checked)
+              }}
+              {...rest}
+              tabIndex={0}
+            />
             {checked && <CheckboxCheckedIcon className={s.checked} />}
             <CheckboxIcon />
           </div>

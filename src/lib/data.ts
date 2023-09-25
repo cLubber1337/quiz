@@ -2,6 +2,10 @@ export type SelectOption = {
   value: number
   title: string
 }
+export type RadioOption = {
+  value: string
+  title: string
+}
 
 export const selectOptions: SelectOption[] = [
   {
@@ -28,4 +32,9 @@ export const selectOptions: SelectOption[] = [
     value: 6,
     title: 'Брест',
   },
+]
+
+export const radioOptions: RadioOption[] = [
+  { value: 'male', title: 'Мужской' },
+  { value: 'female', title: 'Женский' },
 ]

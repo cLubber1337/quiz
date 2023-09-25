@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AgeGenderCard, LocationCard, NamePhoneCard } from '@/components/ui'
 import { SuccessModal } from '@/components/ui/success-modal/success-modal.tsx'
@@ -7,9 +7,11 @@ import { FormDataValues, FormValues } from '@/lib/validation.ts'
 import { fetchFormData } from '@/services/api.ts'
 
 export const App = () => {
+  const KEY = import.meta.env.VITE_KEY
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const [progress, setProgress] = useState(1)
+  const [progress, setProgress] = useState(3)
   const [isFetching, setIsFetching] = useState(false)
+  const [countryCode, setCountryCode] = useState<string>('')
   const [formDataValues, setFormDataValues] = useState<FormDataValues>({
     age: 27,
     gender: '',
@@ -37,9 +39,29 @@ export const App = () => {
         message: '',
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
+
+  const fetchCountry = async () => {
+    try {
+      const res = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${KEY}`)
+      const data = await res.json()
+      const countryCode = data['country_code']
+
+      if (countryCode === 'RU' || countryCode === 'BY') {
+        setCountryCode(countryCode)
+      } else {
+        setCountryCode('RU')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchCountry()
+  }, [])
 
   return (
     <main className="container">
@@ -59,7 +81,12 @@ export const App = () => {
         />
       )}
       {progress === 3 && (
-        <NamePhoneCard setProgress={setProgress} onSubmit={handleSubmit} isFetching={isFetching} />
+        <NamePhoneCard
+          setProgress={setProgress}
+          onSubmit={handleSubmit}
+          isFetching={isFetching}
+          countryCode={countryCode}
+        />
       )}
     </main>
   )

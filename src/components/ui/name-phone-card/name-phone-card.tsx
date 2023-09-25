@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
@@ -20,16 +20,27 @@ interface NamePhoneCardProps {
   onSubmit: SubmitHandler<FormValues>
   isFetching?: boolean
   setProgress: Dispatch<SetStateAction<number>>
+  countryCode?: string
 }
 
-export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCardProps) => {
+export const NamePhoneCard = ({
+  onSubmit,
+  isFetching,
+  setProgress,
+  countryCode,
+}: NamePhoneCardProps) => {
+  const [phoneCode, setCountryCode] = useState<string>('')
+
+  const placeholder =
+    phoneCode === 'RU' ? '+7 (_ _ _) _ _ _-_ _-_ _' : '+375 (_ _) _ _ _ - _ _ - _ _'
+
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
   } = useForm<FormValues>({
-    mode: 'onBlur',
+    mode: 'all',
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
@@ -37,8 +48,18 @@ export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCa
       privacy: true,
     },
   })
+
   const formValues = watch()
-  const disabledSubmitBtn = !formValues.privacy || !formValues.name || !formValues.phone
+  const disabledSubmitBtn =
+    !formValues.privacy || !formValues.name || !formValues.phone || isFetching
+
+  useEffect(() => {
+    if (countryCode === 'RU') {
+      setCountryCode('RU')
+    } else {
+      setCountryCode('BY')
+    }
+  }, [countryCode])
 
   return (
     <Card className={s.namePhoneCard}>
@@ -49,10 +70,12 @@ export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCa
           {errors.name && <p className={s.errorMessage}>{errors.name.message}</p>}
         </div>
         <ControlledInput
+          autoFocus
           className={clsx(errors.name && s.errorInput)}
           type="text"
           name="name"
           control={control}
+          disabled={isFetching}
         />
         <div className={s.phone}>
           <div className="title-wrapper">
@@ -63,7 +86,11 @@ export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCa
             className={clsx(errors.phone && s.errorInput)}
             type="tel"
             name="phone"
+            maxLength={countryCode === 'RU' ? 18 : 19}
             control={control}
+            disabled={isFetching}
+            placeholder={placeholder}
+            id={'phone'}
           />
         </div>
         <ControlledCheckbox
@@ -73,7 +100,7 @@ export const NamePhoneCard = ({ onSubmit, isFetching, setProgress }: NamePhoneCa
         />{' '}
         {errors.privacy && <p className={s.errorMessage}>{errors.privacy.message}</p>}
         <div className="actions">
-          <Button variant="outline" onClick={() => setProgress(prev => prev - 1)}>
+          <Button variant="outline" type="button" onClick={() => setProgress(prev => prev - 1)}>
             Назад
           </Button>
           <Button variant="primary" type="submit" disabled={disabledSubmitBtn}>

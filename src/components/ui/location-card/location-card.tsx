@@ -39,6 +39,7 @@ export const LocationCard = ({
           onChange={e => setFormDataValues(prev => ({ ...prev, message: e.target.value }))}
           className={s.textarea}
           placeholder="Количество символов не более 370"
+          maxLength={370}
         />
       </div>
       <div className="actions">

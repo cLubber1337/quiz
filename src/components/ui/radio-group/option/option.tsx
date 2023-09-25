@@ -3,18 +3,14 @@ import { useEffect, useRef } from 'react'
 import s from './option.module.scss'
 
 import { RadioIcon, RadioCheckedIcon } from '@/components/ui/icons'
+import { RadioOption } from '@/lib/data.ts'
 
 interface OptionProps {
-  value: OptionType['value']
-  title: OptionType['title']
-  selected: OptionType['value']
+  value: RadioOption['value']
+  title: RadioOption['title']
+  selected: RadioOption['value']
   groupName: string
   onChange: (value: string) => void
-}
-
-export type OptionType = {
-  value: string
-  title: string
 }
 
 export const Option = ({ value, title, selected, groupName, onChange }: OptionProps) => {
@@ -41,17 +37,18 @@ export const Option = ({ value, title, selected, groupName, onChange }: OptionPr
   }, [value, onChange])
 
   return (
-    <div className={s.option} key={value} data-checked={isChecked} ref={optionRef} tabIndex={1}>
-      <input
-        className={s.input}
-        type="radio"
-        name={groupName}
-        id={title}
-        value={value}
-        onChange={handleChange}
-      />
+    <div className={s.option} data-checked={isChecked} ref={optionRef}>
       <label className={s.label} htmlFor={title}>
         <div className={s.icons}>
+          <input
+            className={s.input}
+            type="radio"
+            name={groupName}
+            id={title}
+            value={value}
+            onChange={handleChange}
+            tabIndex={0}
+          />
           {isChecked && <RadioCheckedIcon className={s.checked} />}
           <RadioIcon />
         </div>
